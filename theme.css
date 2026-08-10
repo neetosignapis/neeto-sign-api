@@ -1,0 +1,117 @@
+/* ========================================
+   CSS Custom Properties (Variables)
+   ======================================== */
+:root {
+  --primary-green: #0da874;
+  --white: #ffffff;
+  --light-gray: #eeeeee;
+  --dark-gray: #1f2937;
+  --text-white: rgb(255, 255, 255);
+  --text-light: rgb(238, 238, 238);
+}
+
+/* ========================================
+   Navigation Bar Styling
+   ======================================== */
+
+/* Main navigation background */
+#navbar-transition,
+[data-nav="true"] {
+  background-color: var(--primary-green) !important;
+}
+
+/* Navigation logo styling */
+.nav-logo {
+  filter: brightness(0) invert(1) !important;
+  height: 20px !important;
+  width: auto !important;
+  max-width: none !important;
+}
+
+/* Navigation links - default state */
+[data-nav="true"] a,
+#navbar-transition a,
+#navbar a,
+.navbar-link {
+  color: var(--text-white) !important;
+}
+
+/* Navigation links - hover state */
+[data-nav="true"] a:hover,
+#navbar-transition a:hover,
+#navbar a:hover,
+.navbar-link:hover {
+  color: var(--text-light) !important;
+}
+
+/* Navigation text elements */
+#navbar button,
+#navbar span,
+#navbar div,
+#navbar p,
+#navbar .text-sm,
+#navbar .text-xs {
+  color: var(--white) !important;
+}
+
+/* Navigation background overrides for gray elements */
+#navbar .bg-gray-500,
+#navbar .bg-gray-400,
+#navbar .bg-gray-600,
+#navbar .bg-gray-300 {
+  background-color: var(--white) !important;
+}
+
+/* ========================================
+   Mobile Menu (Three Dots Menu) Styling
+   ======================================== */
+
+/* Mobile menu container */
+[data-headlessui-state="open"] [id*="headlessui-dialog-panel"] {
+  background-color: var(--white) !important;
+}
+
+/* Mobile menu links - default state */
+[data-headlessui-state="open"] [id*="headlessui-dialog-panel"] .navbar-link a,
+[data-headlessui-state="open"] [id*="headlessui-dialog-panel"] .text-gray-600,
+[data-headlessui-state="open"] [id*="headlessui-dialog-panel"] .dark\:text-gray-400 {
+  color: var(--dark-gray) !important;
+}
+
+/* Mobile menu links - hover state */
+[data-headlessui-state="open"] [id*="headlessui-dialog-panel"] .navbar-link a:hover,
+[data-headlessui-state="open"] [id*="headlessui-dialog-panel"] .hover\:text-gray-900:hover,
+[data-headlessui-state="open"] [id*="headlessui-dialog-panel"] .dark\:hover\:text-gray-300:hover {
+  color: var(--primary-green) !important;
+}
+
+/* ========================================
+   Search Bar Styling
+   ======================================== */
+
+/* Search bar elements */
+#search-bar-entry button,
+#search-bar-entry span,
+#search-bar-entry div,
+#search-bar-entry p,
+#search-bar-entry img,
+#search-bar-entry svg,
+#search-bar-entry .text-sm,
+#search-bar-entry .text-xs {
+  color: var(--primary-green) !important;
+}
+
+/* ========================================
+   Commented Out - Footer and Link Hiding
+   ======================================== */
+
+/*
+footer[data-testid="footer"] {
+  display: none !important;
+}
+
+a[href*="mintlify.com"],
+a[href*="preview-request"] {
+  display: none !important;
+}
+*/

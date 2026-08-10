@@ -1,0 +1,91 @@
+# Server configuration used across all endpoints
+servers:
+  - description: NeetoSign APIs
+    url: https://{your-subdomain}.neetosign.com/api/external/v2
+    variables:
+      your-subdomain:
+        default: spinkart
+        description: Replace **spinkart** with your [workspace's subdomain](/getting-started/workspace-subdomain).
+
+# Common API Key header parameter
+api_key_header:
+  in: header
+  name: X-Api-Key
+  description: Use the X-Api-Key header to provide your workspace API key. Refer to [Authentication](/getting-started/authentication) for more information.
+  required: true
+  schema:
+    type: string
+
+# Common Accept header parameter
+accept_header:
+  in: header
+  name: Accept
+  description: Specifies the expected response format. Must be set to `application/json` for proper API communication.
+  required: true
+  schema:
+    type: string
+    enum: ["application/json"]
+    default: "application/json"
+
+# Common pagination parameters
+page_number_param:
+  in: query
+  name: page_number
+  description: Retrieve paginated results by specifying the desired page number. If this parameter is absent, all results will be returned.
+  required: false
+  schema:
+    type: integer
+
+page_size_param:
+  in: query
+  name: page_size
+  description: Set the number of results returned in the response. Defaulting to 30 when omitted.
+  required: false
+  schema:
+    type: integer
+
+# Common pagination parameters
+pagination_parameters:
+  - in: query
+    name: page_number
+    description: Retrieve paginated results by specifying the desired page number. If this parameter is absent, all results will be returned.
+    required: false
+    schema:
+      type: integer
+  - in: query
+    name: page_size
+    description: Set the number of results returned in the response. Defaulting to 30 when omitted.
+    required: false
+    schema:
+      type: integer
+
+# Common date-time field schema
+date_time_field:
+  type: string
+  format: date-time
+
+components:
+  schemas:
+    # Common response wrapper structure
+    paginated_response:
+      type: object
+      properties:
+        total_count:
+          type: integer
+
+    # Pagination object structure
+    pagination:
+      type: object
+      properties:
+        total_records:
+          type: integer
+          description: Total number of records.
+        total_pages:
+          type: integer
+          description: Total number of pages available.
+        current_page_number:
+          type: integer
+          description: Current page number.
+        page_size:
+          type: integer
+          description: Number of records per page.

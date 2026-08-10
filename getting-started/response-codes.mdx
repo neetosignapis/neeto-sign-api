@@ -1,0 +1,87 @@
+---
+title: "HTTP response codes"
+description: "Learn about the HTTP status codes returned by the API."
+---
+
+## Success codes
+
+<ResponseField name='200 OK'>
+  The request was successful and the server returned the requested data.
+</ResponseField>
+
+<ResponseField name='201 Created'>
+  The request was successful and a new resource was created. Returned for POST requests that create new resources.
+</ResponseField>
+
+<ResponseField name='204 No Content'>
+  The request was successful but there is no content to return. Typically returned for DELETE operations.
+</ResponseField>
+
+## Error codes
+
+<ResponseField name='400 Bad Request'>
+  There was an issue with the request. This usually indicates malformed JSON,
+  missing required parameters, or invalid parameter values.
+</ResponseField>
+
+<ResponseField name='401 Unauthorized'>
+  The request needs to be authenticated. This typically means:
+  - Missing API key.
+  - Invalid API key.
+  - Expired API key.
+</ResponseField>
+
+<ResponseField name='403 Forbidden'>
+  An operation was not allowed. This could mean:
+  - Insufficient permissions for the requested action.
+  - Attempting to access a resource you don't own.
+  - API key doesn't have the required scope.
+</ResponseField>
+
+<ResponseField name='404 Not Found'>
+  The requested URL or resource was not found. This could indicate:
+  - Incorrect endpoint URL.
+  - Resource ID doesn't exist.
+  - Workspace subdomain is incorrect.
+</ResponseField>
+
+<ResponseField name='422 Unprocessable entity'>
+  The given request could not be processed by the server due to malformed
+  request. Check the request body once again.
+</ResponseField>
+
+<ResponseField name='429 Too Many Requests'>
+  Rate limit exceeded. Try again after some time.
+</ResponseField>
+
+## Server error codes
+
+<ResponseField name='500 Internal Server Error'>
+  An unexpected error occurred on the server. If this persists, please contact
+  support.
+</ResponseField>
+
+<ResponseField name='501 Not Implemented'>
+  The server does not support the functionality required to fulfill the request.
+</ResponseField>
+
+## Error response format
+
+When an error occurs, the API returns a JSON response with error details:
+
+```json 401 Unauthorized
+{
+  "error": "Could not authenticate, invalid API Key"
+}
+```
+
+<ResponseField name='error' type='string'>
+  A human-readable error message.
+</ResponseField>
+
+<Tip>
+  When debugging API issues, the HTTP status
+  code often provides
+  the first clue about what went wrong. Start by checking the status code before
+  diving into the response body.
+</Tip>

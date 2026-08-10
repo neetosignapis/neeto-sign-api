@@ -1,0 +1,65 @@
+---
+title: "Workspace subdomain"
+description: "Learn how to find your workspace subdomain."
+---
+
+## What is a subdomain?
+
+A subdomain is the part of your workspace URL that comes before the main domain. For example, in the URL:
+
+```
+https://spinkart.neetosign.com
+```
+
+**spinkart** is the subdomain.
+
+This subdomain is crucial for making API requests, as it identifies your specific workspace within NeetoSign.
+
+## Step-by-step instructions
+
+<Steps>
+  <Step title="Locate your workspace URL">
+    You can usually find this in your browser's address bar when logged into your workspace.
+
+    Example:
+    ```
+    https://your-subdomain.neetosign.com
+    ```
+  </Step>
+
+  <Step title="Identify the main domain">
+    Our main domain is: `neetosign.com`
+  </Step>
+
+  <Step title="Extract the part before the main domain">
+    Everything before `neetosign.com` is your subdomain.
+
+    **Example:**
+    - URL: `https://green-earth.neetosign.com`
+    - Subdomain: `green-earth`
+  </Step>
+</Steps>
+
+## Using Your Subdomain in API Requests
+
+Once you've identified your subdomain, you'll use it in all API requests. The base URL format is:
+
+```
+https://{your-subdomain}.neetosign.com/api/external/v2
+```
+
+For example, if your subdomain is `mycompany`, your API base URL would be:
+
+```
+https://mycompany.neetosign.com/api/external/v2
+```
+
+## Common Examples
+
+Here are some common subdomain patterns:
+
+| Type       | Example URL                                  | Subdomain        |
+| ---------- | -------------------------------------------- | ---------------- |
+| Company    | `https://acmecorp.neetosign.com`       | `acmecorp`       |
+| Department | `https://marketing.neetosign.com`      | `marketing`      |
+| Project    | `https://product-launch.neetosign.com` | `product-launch` |

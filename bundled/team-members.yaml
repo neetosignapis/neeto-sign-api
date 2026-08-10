@@ -1,0 +1,288 @@
+openapi: 3.0.3
+info:
+  title: NeetoSign Team Members APIs
+  version: 1.0.0
+servers:
+  - description: NeetoSign APIs
+    url: https://{your-subdomain}.neetosign.com/api/external/v2
+    variables:
+      your-subdomain:
+        default: spinkart
+        description: Replace **spinkart** with your [workspace's subdomain](/getting-started/workspace-subdomain).
+tags:
+  - name: Team Members
+    description: APIs to manage team members in the workspace.
+paths:
+  /team-members:
+    get:
+      summary: List team members
+      tags:
+        - Team Members
+      description: List team members in the workspace.
+      parameters:
+        - $ref: '#/components/parameters/api_key_header'
+        - $ref: '#/components/parameters/accept_header'
+        - in: query
+          name: email
+          description: Filter team members by email address.
+          required: false
+          schema:
+            type: string
+            format: email
+            example: oliver@example.com
+        - $ref: '#/components/parameters/page_number_param'
+        - $ref: '#/components/parameters/page_size_param'
+      responses:
+        '200':
+          description: OK - Request succeeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/team_member_list_response'
+    post:
+      summary: Add team members
+      tags:
+        - Team Members
+      description: Add team members to the workspace.
+      parameters:
+        - $ref: '#/components/parameters/api_key_header'
+        - $ref: '#/components/parameters/accept_header'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                organization_role:
+                  type: string
+                  description: Role that should be assigned to the new team members. It must be a valid role from the "Roles" section in the settings page. The default is "Standard".
+                  example: Standard
+                emails:
+                  type: array
+                  items:
+                    type: string
+                    format: email
+                  description: Emails of the team members to be added in the workspace in array format. Must be valid emails.
+                  example:
+                    - oliver@example.com
+                    - jane@example.com
+                invited_by:
+                  type: string
+                  format: email
+                  description: Email of the admin sending the invitation. Defaults to the most recent workspace admin if not specified.
+                  example: admin@example.com
+                send_invitation_email:
+                  type: boolean
+                  description: Set to false to skip sending invitation emails. Defaults to true.
+                  default: true
+              required:
+                - emails
+      responses:
+        '201':
+          description: Created - Users added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Users added successfully
+  /team-members/{team_member_id}:
+    get:
+      summary: Get team member details
+      tags:
+        - Team Members
+      description: Get a team member by ID.
+      parameters:
+        - $ref: '#/components/parameters/api_key_header'
+        - $ref: '#/components/parameters/accept_header'
+        - in: path
+          name: team_member_id
+          description: Id of the team member that you want to retrieve. You can get `team_member_id` by listing all team members using our [List team members](/api-reference/team-members/list) API. Here you will see id for each team member.
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 13c02be6-8bd4-4dda-b9e6-07df53feb8a4
+      responses:
+        '200':
+          description: OK - Request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  team_member:
+                    $ref: '#/components/schemas/team_member'
+    patch:
+      summary: Update team member details
+      tags:
+        - Team Members
+      description: Update a team member.
+      parameters:
+        - $ref: '#/components/parameters/api_key_header'
+        - $ref: '#/components/parameters/accept_header'
+        - in: path
+          name: team_member_id
+          description: Id of the team member that you want to update. You can get `team_member_id` by listing all team members using our [List team members](/api-reference/team-members/list) API. Here you will see id for each team member.
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 13c02be6-8bd4-4dda-b9e6-07df53feb8a4
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: Email of the team member.
+                  example: oliver@example.com
+                first_name:
+                  type: string
+                  description: First name of the team member.
+                  example: Oliver
+                last_name:
+                  type: string
+                  description: Last name of the team member.
+                  example: Smith
+                time_zone:
+                  type: string
+                  description: Time zone for the team member. It should be a valid time zone.
+                  example: Asia/Kolkata
+                organization_role:
+                  type: string
+                  description: Organization role for the team member. This value should be one of the organization roles of your workspace. The list of organization roles can be seen in Roles page. This value is case sensitive.
+                  example: Admin
+      responses:
+        '200':
+          description: OK - Request succeeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  team_member:
+                    $ref: '#/components/schemas/team_member'
+    delete:
+      summary: Remove team member
+      tags:
+        - Team Members
+      description: Remove a team member from the workspace.
+      parameters:
+        - $ref: '#/components/parameters/api_key_header'
+        - $ref: '#/components/parameters/accept_header'
+        - in: path
+          name: team_member_id
+          description: Id of the team member that you want to remove. You can get `team_member_id` by listing all team members using our [List team members](/api-reference/team-members/list) API. Here you will see id for each team member.
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 13c02be6-8bd4-4dda-b9e6-07df53feb8a4
+      responses:
+        '204':
+          description: No Content - Team member removed successfully
+        '422':
+          description: Unprocessable Entity - Cannot remove the last admin of the workspace
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Cannot remove the last admin of the workspace
+components:
+  parameters:
+    api_key_header:
+      in: header
+      name: X-Api-Key
+      description: Use the X-Api-Key header to provide your workspace API key. Refer to [Authentication](/getting-started/authentication) for more information.
+      required: true
+      schema:
+        type: string
+    accept_header:
+      in: header
+      name: Accept
+      description: Specifies the expected response format. Must be set to `application/json` for proper API communication.
+      required: true
+      schema:
+        type: string
+        enum:
+          - application/json
+        default: application/json
+    page_number_param:
+      in: query
+      name: page_number
+      description: Retrieve paginated results by specifying the desired page number. If this parameter is absent, all results will be returned.
+      required: false
+      schema:
+        type: integer
+    page_size_param:
+      in: query
+      name: page_size
+      description: Set the number of results returned in the response. Defaulting to 30 when omitted.
+      required: false
+      schema:
+        type: integer
+  schemas:
+    team_member:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: aaaabbbb-cccc-dddd-eeee-ffff00001111
+        email:
+          type: string
+          example: oliver@example.com
+        first_name:
+          type: string
+          example: Oliver
+        last_name:
+          type: string
+          example: Smith
+        time_zone:
+          type: string
+          example: Asia/Kolkata
+        profile_image_url:
+          type: string
+          nullable: true
+          example: null
+        active:
+          type: boolean
+          example: true
+        organization_role:
+          type: string
+          example: Admin
+    pagination:
+      type: object
+      properties:
+        total_records:
+          type: integer
+          description: Total number of records.
+        total_pages:
+          type: integer
+          description: Total number of pages available.
+        current_page_number:
+          type: integer
+          description: Current page number.
+        page_size:
+          type: integer
+          description: Number of records per page.
+    team_member_list_response:
+      allOf:
+        - type: object
+          properties:
+            team_members:
+              type: array
+              items:
+                $ref: '#/components/schemas/team_member'
+            pagination:
+              $ref: '#/components/schemas/pagination'

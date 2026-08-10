@@ -1,0 +1,84 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "NeetoSign API",
+  "description": "NeetoSign API docs",
+  "theme": "mint",
+  "colors": {
+    "primary": "#10B981",
+    "light": "#34D399",
+    "dark": "#059669"
+  },
+  "logo": "/assets/logo.svg",
+  "favicon": "/assets/favicon.ico",
+  "navbar": {
+    "links": [
+      {
+        "label": "Blog",
+        "href": "https://www.neeto.com/neetosign/blog"
+      },
+      {
+        "label": "Help Center",
+        "href": "https://help.neetosign.com"
+      },
+      {
+        "label": "NeetoSign",
+        "href": "https://neetosign.com/"
+      }
+    ]
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/neetohq",
+      "linkedin": "https://www.linkedin.com/company/neeto",
+      "youtube": "https://www.youtube.com/channel/UCoQ3Kv2JdZ51WZJ3QFFcI9g",
+      "slack": "https://www.launchpass.com/neetohq"
+    }
+  },
+  "navigation": {
+    "pages": [
+      {
+        "group": "Getting Started",
+        "icon": "rocket",
+        "pages": [
+          "getting-started/introduction",
+          "getting-started/workspace-subdomain",
+          "getting-started/authentication",
+          "getting-started/pagination",
+          "getting-started/response-codes"
+        ]
+      },
+      {
+        "group": "Team Members API",
+        "icon": "user-group",
+        "pages": [
+          "api-reference/team-members/list",
+          "api-reference/team-members/add",
+          "api-reference/team-members/get",
+          "api-reference/team-members/update",
+          "api-reference/team-members/remove"
+        ]
+      }
+    ]
+  },
+  "api": {
+    "params": {
+      "expanded": "all"
+    },
+    "playground": {
+      "display": "interactive",
+      "proxy": true
+    },
+    "examples": {
+      "languages": ["curl", "javascript", "python"],
+      "defaults": "all"
+    }
+  },
+  "styling": {
+    "eyebrows": "section",
+    "codeblocks": "system"
+  },
+  "appearance": {
+    "default": "light",
+    "strict": true
+  }
+}

@@ -1,0 +1,16 @@
+version: v1.0
+fail_fast: true
+plan: standard-2
+
+commands:
+  - checkout
+  - neetoci-version node 22.13
+  - cache restore
+  - yarn install
+  - cache store
+  - yarn build
+  - bash .neetoci/scripts/check_links.sh
+  - bash .neetoci/scripts/validate_bundled.sh
+
+triggers:
+  - event: pull_request

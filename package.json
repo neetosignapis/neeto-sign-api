@@ -1,0 +1,31 @@
+{
+  "name": "neeto-sign",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/neetozone/neeto-sign.git",
+  "license": "MIT",
+  "devDependencies": {
+    "@redocly/cli": "2.25.3",
+    "husky": "9.1.7",
+    "mint": "4.2.577",
+    "nodemon": "^3.1.10"
+  },
+  "scripts": {
+    "build": "scripts/bundle.sh",
+    "build:dev": "nodemon --exec 'scripts/bundle.sh'",
+    "docs:preview": "mint dev",
+    "check:openapi": "mint openapi-check",
+    "check:links": "mint broken-links",
+    "prepare": "husky"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "nodemonConfig": {
+    "ext": "yaml",
+    "watch": [
+      "**"
+    ],
+    "ignore": [
+      "bundled/**"
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+
+# Skip if no files that affect bundled* are staged
+if ! git diff --cached --name-only | grep -qE '^(docs[^/]*/|schemas[^/]*/|scripts/bundle\.sh)'; then
+  exit 0
+fi
+
+echo "Source files changed — checking bundled* is up-to-date..."
+echo "Running yarn build (this may take a moment)..."
+# This builds from the working tree (including unstaged changes), so partial
+# stages (git add -p) may not be caught here. CI validates the committed state
+# and acts as the safety net for this edge case.
+yarn build || exit 1
+
+# Only fail if there are unstaged or untracked changes in bundled*
+# (porcelain second column non-space means working tree differs from index)
+if git status --porcelain -- ':(glob)bundled*/**' | grep -q '^.[^ ]'; then
+  echo ""
+  echo "========================================================"
+  echo "  ERROR: bundled* is not in sync with source files"
+  echo "========================================================"
+  echo ""
+  echo "The following bundled files need to be staged:"
+  git status --porcelain -- ':(glob)bundled*/**' | grep '^.[^ ]' | sed 's/^/  /'
+  echo ""
+  echo "To fix:"
+  echo "  git add 'bundled*'"
+  echo "  git commit ..."
+  echo ""
+  exit 1
+fi

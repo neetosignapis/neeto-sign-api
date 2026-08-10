@@ -1,0 +1,64 @@
+---
+title: "Authentication"
+description: "Learn how to authenticate your requests to the NeetoSign API using API keys."
+---
+
+### Generating an API Key
+
+To use the NeetoSign APIs, you must first generate an API key.
+[Learn how to generate your API key here.](https://help.neetosign.com/articles/api-keys)
+
+### Making authenticated API requests
+
+To authenticate your API requests, include a valid API key in the X-Api-Key header.
+
+```bash
+curl https://{your-subdomain}.neetosign.com/api/external/v2/example-endpoint \
+  --header 'X-Api-Key: your-api-key' \
+  --header 'Content-Type: application/json'
+```
+
+### Header Format
+
+Include your API key in the `X-Api-Key` header of every request:
+
+```http
+X-Api-Key: your_api_key_here
+```
+
+<Tip>
+  Generate separate API keys for different workspaces. An API key generated in
+  one workspace will not work in another.
+</Tip>
+
+<Warning>
+  API keys provide access to sensitive data. Treat them like passwords and
+  follow security best practices.
+</Warning>
+
+## Error Responses
+
+### 401 Unauthorized
+
+If your API key is missing, invalid, or expired, you'll receive a 401 error:
+
+```json
+{
+  "error": "Could not authenticate, invalid API Key"
+}
+```
+
+### Common Authentication Issues
+
+<AccordionGroup>
+  <Accordion title='Invalid API key'>
+    **Problem**: API key is missing or invalid. <br />
+    **Solution**: Verify your API key is correct and hasn't been revoked/expired.
+  </Accordion>
+  <Accordion title='Incorrect workspace subdomain'>
+    **Problem**: Subdomain is left as the default value (**spinkart**) or
+    incorrect. <br />
+    **Solution**: Verify your subdomain name is properly added in the request
+    URL.
+  </Accordion>
+</AccordionGroup>
