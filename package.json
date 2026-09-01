@@ -14,6 +14,8 @@
     "build": "scripts/bundle.sh",
     "build:dev": "nodemon --exec 'scripts/bundle.sh'",
     "docs:preview": "mint dev",
+    "docs:publish": "bash scripts/publish_docs.sh",
+    "docs:publish:check": "bash scripts/publish_docs.sh --dry-run",
     "check:openapi": "mint openapi-check",
     "check:links": "mint broken-links",
     "prepare": "husky"
