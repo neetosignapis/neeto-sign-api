@@ -13,7 +13,5 @@ envs:
 commands:
   - checkout
   - git fetch --unshallow || true
-  - git fsck --full
-  - git repack -a -d
-  - git remote add neeto-${PRODUCT}-api "https://x-access-token:${GITHUB_PAT}@github.com/neeto${PRODUCT}apis/neeto-${PRODUCT}-api.git"
+  - git remote add neeto-${PRODUCT}-api "https://x-access-token:${GITHUB_PAT}@github.com/neeto${PRODUCT}apis/neeto-${PRODUCT}-api.git" || true
   - git push neeto-${PRODUCT}-api HEAD:main --force
