@@ -85,7 +85,7 @@ git worktree add --detach "$publish_worktree" "$source_ref" >/dev/null
 worktree_added=true
 
 echo "Installing dependencies for the isolated source commit..."
-HUSKY=0 yarn --cwd "$publish_worktree" install --frozen-lockfile --non-interactive
+HUSKY=0 yarn --cwd "$publish_worktree" install --immutable
 
 echo "Building OpenAPI bundles..."
 yarn --cwd "$publish_worktree" build

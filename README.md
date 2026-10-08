@@ -14,7 +14,10 @@ This repository contains the documentation for the [NeetoSign APIs](https://apid
 
 2. ### Install project dependencies
 
+   This project uses Yarn 4 through Corepack. Enable Corepack once per machine, then install:
+
    ```bash
+   corepack enable
    yarn install
    ```
 

@@ -6,7 +6,8 @@ commands:
   - checkout
   - neetoci-version node 22.13
   - cache restore
-  - yarn install
+  - corepack enable
+  - yarn install --immutable
   - cache store
   - yarn build
   - bash .neetoci/scripts/check_links.sh
